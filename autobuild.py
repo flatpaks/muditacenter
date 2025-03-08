@@ -6,8 +6,10 @@ import requests
 import hashlib
 
 def commit(version):
+    print("checking git status")
     statcode=subprocess.run("git status|grep 'nothing to commit'", shell=True)
     if statcode!=0:
+        print("committing to git")
         commit=f"git commit -am 'autobuild for {version}'"
         tagetc=f"git tag {version}; git push; git push -f origin {version}"
         subprocess.run(commit, shell=True)
