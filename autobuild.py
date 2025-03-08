@@ -19,7 +19,7 @@ for release in jsonresp:
     if release["prerelease"] == False:
         new_ver=release["tag_name"]
         for asset in release["assets"]:
-            if asset["name"]="Mudita-Center.AppImage":
+            if asset["name"]=="Mudita-Center.AppImage":
                 url=asset["browser_download_url"]
 
 if url="":
