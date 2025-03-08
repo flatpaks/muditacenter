@@ -5,6 +5,14 @@ import http.client
 import requests
 import hashlib
 
+def commit(version):
+    statcode=subprocess.run("git status|grep 'nothing to commit'", shell=True)
+    if statcode!=0:
+        commit=f"git commit -am 'autobuild for {version}'"
+        tagetc=f"git tag {version}; git push; git push -f origin {version}"
+        subprocess.run(commit, shell=True)
+        subprocess.run(tagetc, shell=True)
+
 current="2.4.0"
 
 # query github
@@ -56,12 +64,4 @@ with open('mudita-center.appimage',"rb") as f:
     sed_expr=f"sed -e 's,sha256: .*,sha256: {shasum},' -i com.mudita.mudita-center.yaml"
     subprocess.run(sed_expr, shell=True)
 
-def commit():
-    statcode=subprocess.run("git status|grep 'nothing to commit'", shell=True)
-    if statcode!=0:
-        commit=f"git commit -am 'autobuild for {new_ver}'"
-        tagetc=f"git tag {new_ver}; git push; git push -f origin {new_ver}"
-        subprocess.run(commit, shell=True)
-        subprocess.run(tagetc, shell=True)
-
-commit()
+commit(new_ver)
