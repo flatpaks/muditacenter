@@ -38,16 +38,15 @@ for name in update_files:
     subprocess.run(sed_expr, shell=True)
 
 # update shasum in com.beeper.beeper.yaml
-dl = requests.get(loc)
-open('beeper.appimage', 'wb').write(requests.get(loc).content)
+open('mudita-center.appimage', 'wb').write(requests.get(url).content)
 
 
 sha256_hash = hashlib.sha256()
-with open('beeper.appimage',"rb") as f:
+with open('mudita-center.appimage',"rb") as f:
     for byte_block in iter(lambda: f.read(4096),b""):
         sha256_hash.update(byte_block)
     shasum=sha256_hash.hexdigest()
-    sed_expr=f"sed -e 's,sha256: .*,sha256: {shasum},' -i com.beeper.beeper.yaml"
+    sed_expr=f"sed -e 's,sha256: .*,sha256: {shasum},' -i com.mudita.mudita-center.yaml"
     subprocess.run(sed_expr, shell=True)
 
 def commit():
