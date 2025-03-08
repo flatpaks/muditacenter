@@ -1,0 +1,37 @@
+app-id: com.mudita.mudita-center
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '24.08'
+command: run.sh
+separate-locales: false
+rename-desktop-file: Mudita Center.desktop
+rename-icon: Mudita Center
+finish-args:
+  - --share=network
+  - --device=all
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --filesystem=xdg-download
+modules:
+  - name: muditacenter
+    buildsystem: simple
+    sources:
+      - type: file
+        only-arches:
+          - x86_64
+        url: https://github.com/mudita/mudita-center/releases/download/2.4.0/Mudita-Center.AppImage
+        sha256: 0c9908f852aaa942622e3d4e8e6f4225ebf1c62125d553e9fecf29f29c4e3ca0
+      - type: file
+        path: run.sh
+    build-commands:
+      - chmod +x Mudita-Center.AppImage
+      - ./Mudita-Center.AppImage --appimage-extract
+      - desktop-file-edit --set-key=Exec --set-value="run.sh %U" squashfs-root/Mudita\ Center.desktop
+      - rm -r squashfs-root/usr/share/icons/hicolor/1024x1024
+      - mv squashfs-root/* ${FLATPAK_DEST}/
+      - install -m644 "${FLATPAK_DEST}/Mudita Center.desktop" "${FLATPAK_DEST}/share/applications/Mudita Center.desktop"
+      - mv "${FLATPAK_DEST}/usr/share/icons" "${FLATPAK_DEST}/share/"
+      - install -Dm0755 run.sh "${FLATPAK_DEST}/bin/run.sh"
+
