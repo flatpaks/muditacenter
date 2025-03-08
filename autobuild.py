@@ -15,8 +15,15 @@ jsonresp=api.json()
 new_ver=current
 url=""
 
+releases=[]
 for release in jsonresp:
     if release["prerelease"] == False:
+        releases.append(release["tag_name"])
+
+last_release=sorted(releases)[len(releases)-1]
+
+for release in jsonresp:
+    if release["tag_name"] == last_release:
         new_ver=release["tag_name"]
         for asset in release["assets"]:
             if asset["name"]=="Mudita-Center.AppImage":
