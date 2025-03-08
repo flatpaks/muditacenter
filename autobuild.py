@@ -22,7 +22,7 @@ for release in jsonresp:
             if asset["name"]=="Mudita-Center.AppImage":
                 url=asset["browser_download_url"]
 
-if url="":
+if url=="":
     print("URL not set. Bye.")
     exit()
 
@@ -33,7 +33,7 @@ if new_ver == current:
 # update strings in files
 update_files=["autobuild.py", ".github/workflows/build.yml", "com.mudita.mudita-center.yaml"]
 for name in update_files:
-    sed_expr=f"sed -e 's,{current},{version},' -i {name}"
+    sed_expr=f"sed -e 's,{current},{new_ver},' -i {name}"
     print(sed_expr)
     subprocess.run(sed_expr, shell=True)
 
@@ -53,8 +53,8 @@ with open('beeper.appimage',"rb") as f:
 def commit():
     statcode=subprocess.run("git status|grep 'nothing to commit'", shell=True)
     if statcode!=0:
-        commit=f"git commit -am 'autobuild for {version}'"
-        tagetc=f"git tag {version}; git push; git push -f origin {version}"
+        commit=f"git commit -am 'autobuild for {new_ver}'"
+        tagetc=f"git tag {new_ver}; git push; git push -f origin {new_ver}"
         subprocess.run(commit, shell=True)
         subprocess.run(tagetc, shell=True)
 
