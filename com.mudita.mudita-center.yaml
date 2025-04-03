@@ -21,8 +21,8 @@ modules:
       - type: file
         only-arches:
           - x86_64
-        url: https://github.com/mudita/mudita-center/releases/download/3.0.0/Mudita-Center.AppImage
-        sha256: a1890cdf1a0320f4bfb6d601fe9eb75ca0bc539dbdd305c94c12046b34a80e9a
+        url: https://github.com/mudita/mudita-center/releases/download/3.0.1/Mudita-Center.AppImage
+        sha256: 084797f54b1d9010c06bc0b29e85d6697c3260de07d6eccb363aeb811663613b
       - type: file
         path: run.sh
     build-commands:

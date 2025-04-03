@@ -15,7 +15,7 @@ def commit(version):
         subprocess.run(commit, shell=True)
         subprocess.run(tagetc, shell=True)
 
-current="3.0.0"
+current="3.0.1"
 
 # query github
 endpoint="https://api.github.com/repos/mudita/mudita-center/releases"
