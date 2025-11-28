@@ -6,7 +6,7 @@ base: org.electronjs.Electron2.BaseApp
 base-version: '25.08'
 command: run.sh
 separate-locales: false
-rename-desktop-file: Mudita Center.desktop
+rename-desktop-file: mudita-center.desktop
 rename-icon: Mudita Center
 finish-args:
   - --share=network
@@ -28,11 +28,11 @@ modules:
     build-commands:
       - chmod +x Mudita-Center.AppImage
       - ./Mudita-Center.AppImage --appimage-extract
-      - desktop-file-edit --set-key=Exec --set-value="run.sh %U" squashfs-root/Mudita\ Center.desktop
+      - desktop-file-edit --set-key=Exec --set-value="run.sh %U" squashfs-root/mudita-center.desktop
       - rm -r squashfs-root/usr/share/icons/hicolor/1024x1024
       - mv squashfs-root/* ${FLATPAK_DEST}/
       - mkdir -p "${FLATPAK_DEST}/share/applications"
-      - install -m644 "${FLATPAK_DEST}/Mudita Center.desktop" "${FLATPAK_DEST}/share/applications/Mudita Center.desktop"
+      - install -m644 "${FLATPAK_DEST}/mudita-center.desktop" "${FLATPAK_DEST}/share/applications/cudita-center.desktop"
       - mv "${FLATPAK_DEST}/usr/share/icons" "${FLATPAK_DEST}/share/"
       - install -Dm0755 run.sh "${FLATPAK_DEST}/bin/run.sh"
 
