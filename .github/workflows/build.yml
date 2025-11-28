@@ -49,22 +49,14 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update && sudo apt-get install -qq -y bash rsync flatpak elfutils coreutils slirp4netns rootlesskit binfmt-support fuse-overlayfs flatpak-builder qemu-user-static unzip
-      - name: install flatpak deps
+      - name: build flatpaks
         shell: bash
-        env:
-          CI_USER: runner
         run: |
           sudo rm -rf /opt/pakrepo/
           sudo mkdir -p /opt/pakrepo
           sudo chown "$USER" /opt/pakrepo
-          sudo flatpak update --noninteractive -y
-          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          sudo flatpak install --noninteractive --arch=x86_64 flathub org.electronjs.Electron2.BaseApp//25.08 org.freedesktop.Platform//25.08 org.freedesktop.Sdk//25.08 -y
-      - name: build flatpaks
-        shell: bash
-        run: |
-          # amd64
-          flatpak-builder --arch=x86_64 --gpg-sign=FBEF43DC8C6BE9A7 --repo=/opt/pakrepo --force-clean .builddir com.mudita.mudita-center.yaml
+          flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak-builder --user --install-deps-from=flathub --arch=x86_64 --gpg-sign=FBEF43DC8C6BE9A7 --repo=/opt/pakrepo --force-clean .builddir com.mudita.mudita-center.yaml
           flatpak build-bundle --arch=x86_64 /opt/pakrepo ./mudita-center.flatpak com.mudita.mudita-center master
           sha256sum ./mudita-center.flatpak | tee -a checksums.txt
       - name: Upload checksums.txt
