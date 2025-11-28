@@ -32,7 +32,7 @@ modules:
       - rm -r squashfs-root/usr/share/icons/hicolor/1024x1024
       - mv squashfs-root/* ${FLATPAK_DEST}/
       - mkdir -p "${FLATPAK_DEST}/share/applications"
-      - install -m644 "${FLATPAK_DEST}/mudita-center.desktop" "${FLATPAK_DEST}/share/applications/cudita-center.desktop"
+      - install -m644 "${FLATPAK_DEST}/mudita-center.desktop" "${FLATPAK_DEST}/share/applications/mudita-center.desktop"
       - mv "${FLATPAK_DEST}/usr/share/icons" "${FLATPAK_DEST}/share/"
       - install -Dm0755 run.sh "${FLATPAK_DEST}/bin/run.sh"
 
