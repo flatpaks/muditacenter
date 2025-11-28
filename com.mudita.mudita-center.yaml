@@ -7,7 +7,7 @@ base-version: '25.08'
 command: run.sh
 separate-locales: false
 rename-desktop-file: mudita-center.desktop
-rename-icon: Mudita Center
+rename-icon: mudita-center
 finish-args:
   - --share=network
   - --device=all
